@@ -29,13 +29,15 @@ def get_user_input(current_player):
   while True:
     try:
       row, col = map(int, input(f"Player {current_player}, enter your move (row and column): ").split())
+      row -= 1 # Convert to 0-based index
+      col -= 1
     except ValueError:
       print("Please enter two numbers, separated by a space.")
       continue
     if row in range(3) and col in range(3) and board[row][col] == ' ':
       return row, col # return immediately when valid
     else:
-      print("Invalid move. Row and column must be within range 0 - 3.")
+      print("Invalid move. Row and column must be within range 1 - 3.")
 
 def check_winner(player):
   # Check the rows and columns first
