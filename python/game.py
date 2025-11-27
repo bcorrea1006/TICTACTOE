@@ -6,18 +6,24 @@ def main():
   current_player = 'X'
   turn = 0
   while turn < 9:
-    # Display the board and print whose turn it is
-    display_board()
+    # Display the board and print the turn number
     print(f"Turn {turn + 1}")
-    # Get the player's move and validate it
-    try:
-      row, col = map(int, input(f"Player {current_player}, enter your move (row and column): ").split())
-    except ValueError:
-      print("Please enter two numbers, separeated by a space.")
-      continue
-    if (row not in range(3) or col not in range(3) or board[row][col] != ' '):
-      print("invalid move, try again.")
-      continue
+    display_board()
+
+    # Input loop for a valid move
+    isValid = False
+    while not isValid:
+      try:
+        row, col = map(int, input(f"Player {current_player}, enter your move (row and column): ").split())
+      except ValueError:
+        print("Please enter two numbers, separated by a space.")
+        continue
+
+      if row in range(3) and col in range(3) and board[row][col] == ' ':
+        isValid = True
+      else:
+        print("Invalid move, try again.")
+
     # Place the player's move
     board[row][col] = current_player
     if (check_winner(current_player)):
