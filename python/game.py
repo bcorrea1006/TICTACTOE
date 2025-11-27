@@ -6,17 +6,26 @@ def main():
   current_player = 'X'
   turn = 0
   while turn < 9:
+    # Display the board and print whose turn it is
     display_board()
-    print(f"Turn {turn}")
-    row, col = map(int, input(f"Player {current_player}, enter your move (row and column): ").split())
+    print(f"Turn {turn + 1}")
+    # Get the player's move and validate it
+    try:
+      row, col = map(int, input(f"Player {current_player}, enter your move (row and column): ").split())
+    except ValueError:
+      print("Please enter two numbers, separeated by a space.")
+      continue
     if (row not in range(3) or col not in range(3) or board[row][col] != ' '):
       print("invalid move, try again.")
-      turn -= 1
       continue
+    # Place the player's move
     board[row][col] = current_player
     if (check_winner(current_player)):
       return True
+    # Toggle the current player and update the turn counter
     current_player = 'O' if (current_player == 'X') else 'X'
+    turn += 1
+  # End the game in a tie if we've used all 9 turns
   display_board()
   print("Tie!")
 
